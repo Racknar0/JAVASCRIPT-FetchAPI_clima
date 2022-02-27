@@ -23,7 +23,7 @@ function buscarClima (e) {
     }
 
     //!consultar api
-
+    consultarAPI2(ciudad, pais);
 
 }
 
@@ -46,3 +46,37 @@ function mosrtarError(mensaje) {
         }, 3000);
     }
 }
+
+
+//! CONSULTAR Geocoding API
+function consultarAPI2(ciudad, pais) {
+
+    const apiID = 'f0ca3f6765f8727e8b318f9407f09ee4';
+    const urlgeo = `http://api.openweathermap.org/geo/1.0/direct?q=${ciudad},${pais}&appid=${apiID}`
+    
+
+    fetch(urlgeo)
+        .then ( response => response.json() )
+        .then( datos => {
+            if (datos.length === 0) {
+                mosrtarError('Cuidad no encontrada');
+                return;
+            } else {
+                consultarAPI(datos[0].lat, datos[0].lon);
+            }
+        })
+}
+
+
+//! CONSULTAR current API
+ function consultarAPI(lat, lon) {
+
+    const apiID = 'f0ca3f6765f8727e8b318f9407f09ee4';
+    const url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiID}`;
+    
+    console.log(url);
+     fetch(url)
+        .then ( respuesta => respuesta.json() )
+        .then ( datos => console.log(datos)) 
+
+} 
