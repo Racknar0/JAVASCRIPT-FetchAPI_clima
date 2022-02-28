@@ -54,10 +54,12 @@ function consultarAPI2(ciudad, pais) {
     const apiID = 'f0ca3f6765f8727e8b318f9407f09ee4';
     const urlgeo = `http://api.openweathermap.org/geo/1.0/direct?q=${ciudad},${pais}&appid=${apiID}`
     
-
     fetch(urlgeo)
         .then ( response => response.json() )
         .then( datos => {
+
+            limpiarHTML (); //!limpiarHTML
+
             if (datos.length === 0) {
                 mosrtarError('Cuidad no encontrada');
                 return;
@@ -74,9 +76,35 @@ function consultarAPI2(ciudad, pais) {
     const apiID = 'f0ca3f6765f8727e8b318f9407f09ee4';
     const url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiID}`;
     
-    console.log(url);
      fetch(url)
         .then ( respuesta => respuesta.json() )
-        .then ( datos => console.log(datos)) 
+        //!mostrar el HTML
+        .then ( datos => mosrtarClima(datos))
 
 } 
+
+
+function mosrtarClima(datos) {
+    const { main: { temp, temp_max, temp_min } } = datos;
+
+    centigrados = kelvinACentigrados(temp);
+
+    const actual = document.createElement('p');
+    actual.innerHTML = `${centigrados} &#8451;`;
+    actual.classList.add('font-bold', 'text-6xl');
+
+    const resultadoDiv = document.createElement('DIV');
+    resultadoDiv.classList.add('text-center', 'text-white');
+    resultadoDiv.appendChild(actual);
+
+    resultado.appendChild(resultadoDiv);
+}
+
+const kelvinACentigrados = grados =>  parseInt(grados - 273.15);  //! Helper
+
+
+function limpiarHTML () {
+    while( resultado.firstElementChild ) {
+        resultado.removeChild(resultado.firstChild);
+    }
+}
