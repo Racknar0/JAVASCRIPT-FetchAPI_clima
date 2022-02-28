@@ -93,7 +93,6 @@ function consultarAPI2(ciudad, pais) {
 
 } 
 
-
 function mosrtarClima(datos) {
 
     console.log(datos);
