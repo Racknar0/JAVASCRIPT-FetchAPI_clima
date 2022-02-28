@@ -85,23 +85,41 @@ function consultarAPI2(ciudad, pais) {
 
 
 function mosrtarClima(datos) {
-    const { main: { temp, temp_max, temp_min } } = datos;
+
+    console.log(datos);
+    const { name, main: { temp, temp_max, temp_min } } = datos;
 
     centigrados = kelvinACentigrados(temp);
+    max = kelvinACentigrados(temp_max);
+    min = kelvinACentigrados(temp_min);
 
-    const actual = document.createElement('p');
+    const nombreCiudad = document.createElement('P');
+    nombreCiudad.textContent = `Clima en ${name}`
+    nombreCiudad.classList.add('font-bold', 'text-2xl')
+
+    const actual = document.createElement('P');
     actual.innerHTML = `${centigrados} &#8451;`;
     actual.classList.add('font-bold', 'text-6xl');
 
+    const temperaturaMaxima = document.createElement('P')
+    temperaturaMaxima.innerHTML = `Max: ${max} &#8451;`;
+    temperaturaMaxima.classList.add('text-xl');
+
+    const temperaturaMinima = document.createElement('P')
+    temperaturaMinima.innerHTML = `Min: ${min} &#8451;`;
+    temperaturaMinima.classList.add('text-xl');
+
     const resultadoDiv = document.createElement('DIV');
     resultadoDiv.classList.add('text-center', 'text-white');
+    resultadoDiv.appendChild(nombreCiudad);
     resultadoDiv.appendChild(actual);
+    resultadoDiv.appendChild(temperaturaMaxima);
+    resultadoDiv.appendChild(temperaturaMinima);
 
     resultado.appendChild(resultadoDiv);
 }
 
-const kelvinACentigrados = grados =>  parseInt(grados - 273.15);  //! Helper
-
+const kelvinACentigrados = grados =>  ((grados - 273.15).toFixed(1));  //! Helper
 
 function limpiarHTML () {
     while( resultado.firstElementChild ) {
