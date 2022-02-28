@@ -58,7 +58,7 @@ function consultarAPI2(ciudad, pais) {
         .then ( response => response.json() )
         .then( datos => {
 
-            limpiarHTML (); //!limpiarHTML
+            
 
             if (datos.length === 0) {
                 mosrtarError('Cuidad no encontrada');
@@ -76,10 +76,20 @@ function consultarAPI2(ciudad, pais) {
     const apiID = 'f0ca3f6765f8727e8b318f9407f09ee4';
     const url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiID}`;
     
-     fetch(url)
+    spinner (); //! muestra spinner
+
+    
+
+     setTimeout(() => {
+
+        limpiarHTML (); //!limpiarHTML
+
+        fetch(url)
         .then ( respuesta => respuesta.json() )
         //!mostrar el HTML
         .then ( datos => mosrtarClima(datos))
+        
+     }, 2000);
 
 } 
 
@@ -125,4 +135,30 @@ function limpiarHTML () {
     while( resultado.firstElementChild ) {
         resultado.removeChild(resultado.firstChild);
     }
+}
+
+function spinner () {
+
+    limpiarHTML (); //! limpiarHTML
+
+    const divSpinner = document.createElement('DIV');
+    divSpinner.classList.add('sk-fading-circle');
+
+    divSpinner.innerHTML = `
+    <div class="sk-fading-circle">
+    <div class="sk-circle1 sk-circle"></div>
+    <div class="sk-circle2 sk-circle"></div>
+    <div class="sk-circle3 sk-circle"></div>
+    <div class="sk-circle4 sk-circle"></div>
+    <div class="sk-circle5 sk-circle"></div>
+    <div class="sk-circle6 sk-circle"></div>
+    <div class="sk-circle7 sk-circle"></div>
+    <div class="sk-circle8 sk-circle"></div>
+    <div class="sk-circle9 sk-circle"></div>
+    <div class="sk-circle10 sk-circle"></div>
+    <div class="sk-circle11 sk-circle"></div>
+    <div class="sk-circle12 sk-circle"></div>
+    `;
+
+    resultado.appendChild(divSpinner);
 }
