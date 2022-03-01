@@ -52,7 +52,7 @@ function mosrtarError(mensaje) {
 function consultarAPI2(ciudad, pais) {
 
     const apiID = 'f0ca3f6765f8727e8b318f9407f09ee4';
-    const urlgeo = `http://api.openweathermap.org/geo/1.0/direct?q=${ciudad},${pais}&appid=${apiID}`
+    const urlgeo = `https://api.openweathermap.org/geo/1.0/direct?q=${ciudad},${pais}&appid=${apiID}`
     
     fetch(urlgeo)
         .then ( response => response.json() )
@@ -74,7 +74,7 @@ function consultarAPI2(ciudad, pais) {
  function consultarAPI(lat, lon) {
 
     const apiID = 'f0ca3f6765f8727e8b318f9407f09ee4';
-    const url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiID}`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiID}`;
     
     spinner (); //! muestra spinner
 
